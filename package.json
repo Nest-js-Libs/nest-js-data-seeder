@@ -1,6 +1,6 @@
 {
   "name": "@nest-js/data-seeder",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "NestJS data seeder library",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
