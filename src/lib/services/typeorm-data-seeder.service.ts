@@ -138,7 +138,17 @@ export class TypeOrmDataSeederService {
    * Genera un valor aleatorio según el tipo de columna
    */
   private generateValueForColumn(column: any): any {
-    const type = column.type.toLowerCase();
+    // Verificar si column.type es una cadena o un objeto
+    let type;
+    if (typeof column.type === 'string') {
+      type = column.type.toLowerCase();
+    } else if (column.type && typeof column.type === 'object') {
+      // Si es un objeto, intentar obtener el nombre
+      type = column.type.name ? column.type.name.toLowerCase() : 'string';
+    } else {
+      // Valor por defecto si no se puede determinar el tipo
+      type = 'string';
+    }
 
     // Manejar tipos de datos comunes
     switch (type) {

@@ -3,6 +3,7 @@ import { TypeOrmDataSeederService } from './typeorm-data-seeder.service';
 import { SeedOptions } from '../interfaces/seed-options.interface';
 import { DataSeederModuleOptions } from '../data-seeder.module';
 import { MongooseDataSeederService } from './mongoose-data-seeder.service';
+import { Document } from 'mongoose';
 
 @Injectable()
 export class DataSeederService {
@@ -34,8 +35,6 @@ export class DataSeederService {
         : this.options.cleanBeforeSeed
     };
 
-    console.log('mergedOptions', this.isTypeOrmEntity(entityClass));
-    
     // Determinar si es una entidad TypeORM o Mongoose
     if (this.isTypeOrmEntity(entityClass)) {
       return this.typeormSeeder.seed(entityClass, count, mergedOptions);
@@ -119,9 +118,7 @@ export class DataSeederService {
    */
   private isTypeOrmEntity(entityClass: any): boolean {
     return (
-      entityClass.prototype?.constructor?.name &&
-      typeof entityClass === 'function' &&
-      Reflect.hasMetadata('typeorm:entity', entityClass)
+      !(entityClass instanceof Document)
     );
   }
 

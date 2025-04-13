@@ -19,12 +19,6 @@ import { UserEntity } from './typeorm-entity/users.entity';
     // Importamos el módulo DataSeeder
     DataSeederModule.forRoot({ 
         cleanBeforeSeed: true, 
-        connection: {
-            type: 'sqlite',
-            database: ':memory:',
-            entities: [UserEntity],
-            synchronize: true,
-        } 
     }),
   ],
   controllers: [DataSeederExampleController],

@@ -9,7 +9,6 @@ export interface DataSeederModuleOptions {
    * Limpiar datos existentes antes de generar nuevos
    */
   cleanBeforeSeed?: boolean;
-  connection: any;
 }
 
 @Global()
@@ -18,7 +17,6 @@ export class DataSeederModule {
   static forRoot(options?: DataSeederModuleOptions): DynamicModule {
     const defaultOptions: DataSeederModuleOptions = {
       cleanBeforeSeed: false,
-      connection: null,
     };
 
     const mergedOptions = { ...defaultOptions, ...options };
@@ -34,9 +32,7 @@ export class DataSeederModule {
         {
           provide: 'DatabaseConnection',
           useFactory: () => {
-            // Return your database connection here
-            // This could be from options or another service
-            return options.connection;
+            return {};
           },
         },
         DataSeederService,
